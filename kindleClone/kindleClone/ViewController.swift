@@ -22,6 +22,22 @@ class ViewController: UITableViewController {  //specifying UITableVC makes tabl
         setupBooks()
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let layout = UICollectionViewFlowLayout()
+        
+//      let bookPageController = UICollectionViewController(collectionViewLayout: layout)  <--- overloaded below
+        let bookPageController = BookPagerController(collectionViewLayout: layout)
+
+        let navController = UINavigationController(rootViewController: bookPageController)
+        
+        
+        
+        present(navController, animated: true, completion: nil)
+    }
+    
+    
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if let count = books?.count {  //crashes without taking into account situations where books is nil
