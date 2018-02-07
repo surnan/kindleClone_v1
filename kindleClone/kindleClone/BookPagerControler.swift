@@ -9,10 +9,13 @@
  import UIKit
  
  class BookPagerController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    
+    var book: Book?  //We don't know value at initialization.  So we have to start with value = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView?.backgroundColor = .white
-        navigationItem.title = "!!BOOK!!"
+        navigationItem.title = self.book?.title
         collectionView?.register(PageCell.self, forCellWithReuseIdentifier: "cellID")
         
         let layout = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout
@@ -21,11 +24,20 @@
         
         layout?.minimumLineSpacing = 0  //makes it lines up on left edge
         collectionView?.isPagingEnabled = true  //scroll one page at a time
+        
+        //setting a close button on collectionView itself.  No need to bring in a navigationController for this feature
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: self, action: #selector(handleCloseBook))
     }
     
     
+    @objc func handleCloseBook() {
+        dismiss(animated: true, completion: nil)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: view.frame.height)  //makes view screen size
+        return CGSize(width: view.frame.width, height: view.frame.height - 44 - 20)  //makes view screen size
+            // '-44 = navigationHeight' & '-20 = statusBarHeight
+        
     }
     
     
@@ -35,11 +47,11 @@
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return book?.pages.count  ?? 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellID", for: indexPath)
+        let pageCell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellID", for: indexPath) as! PageCell
         
         /*
         if indexPath.item % 2 == 0 {
@@ -49,7 +61,13 @@
         }
   */
         
-        return cell
+        
+//        pageCell.textLabel.text = "Something from our pages"
+        
+        let page = book?.pages[indexPath.item]
+        pageCell.textLabel.text = page?.text
+        
+        return pageCell
     }
     
     

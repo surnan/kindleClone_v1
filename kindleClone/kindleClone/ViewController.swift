@@ -24,15 +24,21 @@ class ViewController: UITableViewController {  //specifying UITableVC makes tabl
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        let selectedBook = self.books?[indexPath.row]
+//        print(book?.title)
+//        return
+
+        
+        
         let layout = UICollectionViewFlowLayout()
         
 //      let bookPageController = UICollectionViewController(collectionViewLayout: layout)  <--- overloaded below
         let bookPageController = BookPagerController(collectionViewLayout: layout)
+        
+        
+        bookPageController.book = selectedBook
 
         let navController = UINavigationController(rootViewController: bookPageController)
-        
-        
-        
         present(navController, animated: true, completion: nil)
     }
     
