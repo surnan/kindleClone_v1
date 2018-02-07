@@ -11,6 +11,8 @@
 		843F36622027DFB80033D9C7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843F36612027DFB80033D9C7 /* ViewController.swift */; };
 		843F36672027DFB80033D9C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 843F36662027DFB80033D9C7 /* Assets.xcassets */; };
 		843F366A2027DFB80033D9C7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843F36682027DFB80033D9C7 /* LaunchScreen.storyboard */; };
+		845A179F20280B2A00B811C9 /* BookCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845A179E20280B2A00B811C9 /* BookCell.swift */; };
+		8465C4912027F96F00CBA599 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8465C4902027F96F00CBA599 /* Models.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +22,8 @@
 		843F36662027DFB80033D9C7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		843F36692027DFB80033D9C7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		843F366B2027DFB80033D9C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		845A179E20280B2A00B811C9 /* BookCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCell.swift; sourceTree = "<group>"; };
+		8465C4902027F96F00CBA599 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +61,8 @@
 				843F36662027DFB80033D9C7 /* Assets.xcassets */,
 				843F36682027DFB80033D9C7 /* LaunchScreen.storyboard */,
 				843F366B2027DFB80033D9C7 /* Info.plist */,
+				8465C4902027F96F00CBA599 /* Models.swift */,
+				845A179E20280B2A00B811C9 /* BookCell.swift */,
 			);
 			path = kindleClone;
 			sourceTree = "<group>";
@@ -132,6 +138,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				845A179F20280B2A00B811C9 /* BookCell.swift in Sources */,
+				8465C4912027F96F00CBA599 /* Models.swift in Sources */,
 				843F36622027DFB80033D9C7 /* ViewController.swift in Sources */,
 				843F36602027DFB80033D9C7 /* AppDelegate.swift in Sources */,
 			);

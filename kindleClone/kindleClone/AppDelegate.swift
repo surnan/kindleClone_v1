@@ -18,8 +18,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //below needed after deleting storyboard
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        window?.rootViewController = ViewController()
-        //above needed after deleting storyboard
+        
+        
+        
+//        window?.rootViewController = ViewController()
+//        //above needed after deleting storyboard
+        
+        window?.rootViewController = UINavigationController(rootViewController: ViewController())
+        
         
         return true
     }
