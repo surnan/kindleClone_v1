@@ -10,27 +10,31 @@ import UIKit
 
 class BookCell: UITableViewCell {
     
+    var book: Book? {   // <-- you are giving VC ability to set these values by assigning a whole cell to 'Book' object
+        didSet {
+            coverImageView.image = book?.image
+            titleLabel.text = book?.title
+            authorLabel.text = book?.author
+        }
+    }
     
-    let coverImageView: UIImageView = {
+    private let coverImageView: UIImageView = {   //cell.book = book
         let imageView = UIImageView()
-        imageView.backgroundColor = .red
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = #imageLiteral(resourceName: "steve_jobs")
         return imageView
     }()
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {  //cell.book = book
         let label = UILabel()
-        label.text = "This is the text for the title of ourbook inside of our cell"
-        label.backgroundColor = .blue
+        label.text = "Unable to load value for label.text"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    let authorLabel: UILabel = {
+    private let authorLabel: UILabel = {  //cell.book = book  
         let label = UILabel()
-        label.text = "This is some author for the book that we have in this row"
-        label.backgroundColor = .green
+        label.text = "Unable to load value for authorlabel.text"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

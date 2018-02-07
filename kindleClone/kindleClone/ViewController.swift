@@ -32,10 +32,17 @@ class ViewController: UITableViewController {  //specifying UITableVC makes tabl
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "myCellID", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "myCellID", for: indexPath) as! BookCell //<-- downcast works because of line #20
+                                                                                        // it registered with "BookCell"
         
         
-//        let book = books?[indexPath.row]
+        let book = books?[indexPath.row]
+        cell.book = book   // this works because of 'var book: Book?' in class definition
+        
+//        Below is errors
+//        cell.coverImageView.image = book?.image
+//        cell.titleLabel.text = book?.title
+//        cell.authorLabel.text = book?.author
 //        cell.textLabel?.text = book?.title
 //        cell.imageView?.image = book?.image
 
@@ -46,15 +53,12 @@ class ViewController: UITableViewController {  //specifying UITableVC makes tabl
         return 80
     }
     
-    
-    
-    
     func setupBooks(){
         let page1 = Page(number: 1, text: "Text for the first page")
         let page2 = Page(number: 2, text: "This is the text for second page")
         let pages = [page1, page2]
         
-        let book = Book(title: "Steve Jobs", author: "Walter Isaacson", image: #imageLiteral(resourceName: "steve_jobs"), pages: pages)
+        let book1 = Book(title: "Steve Jobs", author: "Walter Isaacson", image: #imageLiteral(resourceName: "steve_jobs"), pages: pages)
         let book2 = Book(title: "Bill Gates: A Biography", author: "Michael Becraft", image: #imageLiteral(resourceName: "bill_gates"), pages: [
             Page(number: 1, text: "Text for Page 1"),
             Page(number: 2, text: "Text for Page 2"),
@@ -62,9 +66,7 @@ class ViewController: UITableViewController {  //specifying UITableVC makes tabl
             Page(number: 4, text: "Text for Page 4")
             ])
         
-        
-        self.books = [book, book2]
-        
+        self.books = [book1, book2]
     }
 }
 
