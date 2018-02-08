@@ -45,11 +45,20 @@ class ViewController: UITableViewController {  //specifying UITableVC makes tabl
                     
                     self.books = []  // <-- without this line the self.books?.append results = NIL
                     for bookDictionary in bookDictionaries {
-                        if let title = bookDictionary["title"] as? String, let author = bookDictionary["author"] as? String {
-                            let book = Book(title: title, author: author, image: #imageLiteral(resourceName: "steve_jobs"), pages: [])
-                            //print(book.title, book.author)
-                            self.books?.append(book)
-                        }
+                        let book = Book(dictionary: bookDictionary)
+                        self.books?.append(book)
+                        
+                        
+                        
+//                        if let title = bookDictionary["title"] as? String, let author = bookDictionary["author"] as? String {
+//                            let book = Book(title: title, author: author, image: #imageLiteral(resourceName: "steve_jobs"), pages: [])
+//                            //print(book.title, book.author)
+//                            self.books?.append(book)
+//                        }
+                        
+                        
+                        
+                        
                     }
                     
                     DispatchQueue.main.async {
