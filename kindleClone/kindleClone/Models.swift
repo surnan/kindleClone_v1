@@ -14,13 +14,6 @@ class Book {
     let pages: [Page]
     let image: UIImage
     
-//    init(title: String, author: String, image: UIImage, pages: [Page]) {
-//        self.title = title
-//        self.author = author
-//        self.pages = pages
-//        self.image = image
-//    }
-    
     init(dictionary: [String:Any]) {
       
         self.title = dictionary["title"] as? String ?? ""

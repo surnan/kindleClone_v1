@@ -39,13 +39,7 @@
             // '-44 = navigationHeight' & '-20 = statusBarHeight
         
     }
-    
-    
-    
-    
-    
-    
-    
+
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return book?.pages.count  ?? 0
     }
@@ -60,16 +54,8 @@
             cell.backgroundColor = .blue
         }
   */
-        
-        
-//        pageCell.textLabel.text = "Something from our pages"
-        
         let page = book?.pages[indexPath.item]
         pageCell.textLabel.text = page?.text
-        
         return pageCell
     }
-    
-    
-    
  }
