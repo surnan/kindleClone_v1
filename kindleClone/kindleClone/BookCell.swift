@@ -12,9 +12,33 @@ class BookCell: UITableViewCell {
     
     var book: Book? {   // <-- you are giving VC ability to set these values by assigning a whole cell to 'Book' object
         didSet {
-            coverImageView.image = book?.image
             titleLabel.text = book?.title
             authorLabel.text = book?.author
+            
+//            print(book?.coverImageURL)
+            
+            guard let coverImageUrl = book?.coverImageURL else {return}
+            guard let url = URL(string: coverImageUrl) else {return}
+            
+            coverImageView.image = nil  //clears out the previous image.
+                        //So you don't old image from cell recycle
+            
+            
+            URLSession.shared.dataTask(with: url) { (data, response, error) in
+                
+                if let err = error {
+                    print("Failed to retrieve our book cover image: ", err)
+                    return
+                }
+                
+                guard let imageData = data else {return}
+                let image = UIImage(data: imageData)
+                
+                DispatchQueue.main.async {
+                    self.coverImageView.image = image  //self needed here because of URLSession closure
+                }
+//                 print(data)  //without resume you don't execute 'print(data)' statement
+            }.resume()
         }
     }
     

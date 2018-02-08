@@ -12,16 +12,17 @@ class Book {
     let title: String
     let author: String
     let pages: [Page]
-    let image: UIImage
+    let coverImageURL: String
+    
+    
     
     init(dictionary: [String:Any]) {
       
         self.title = dictionary["title"] as? String ?? ""
         self.author = dictionary["author"] as? String ?? ""
-        self.image = #imageLiteral(resourceName: "steve_jobs")
+        self.coverImageURL = dictionary["coverImageUrl"] as? String ?? ""
         
         var bookPages = [Page]()
-        
         if let pagesDictionaries = dictionary["pages"] as? [[String: Any]] {
             for pageDictionary in pagesDictionaries {
                 if let pageText = pageDictionary["text"] as? String {
@@ -30,7 +31,7 @@ class Book {
                 }
             }
         }
-        pages = bookPages
+        self.pages = bookPages
     }
 }
 
