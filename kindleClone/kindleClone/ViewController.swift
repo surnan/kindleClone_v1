@@ -47,18 +47,6 @@ class ViewController: UITableViewController {  //specifying UITableVC makes tabl
                     for bookDictionary in bookDictionaries {
                         let book = Book(dictionary: bookDictionary)
                         self.books?.append(book)
-                        
-                        
-                        
-//                        if let title = bookDictionary["title"] as? String, let author = bookDictionary["author"] as? String {
-//                            let book = Book(title: title, author: author, image: #imageLiteral(resourceName: "steve_jobs"), pages: [])
-//                            //print(book.title, book.author)
-//                            self.books?.append(book)
-//                        }
-                        
-                        
-                        
-                        
                     }
                     
                     DispatchQueue.main.async {
@@ -86,14 +74,7 @@ class ViewController: UITableViewController {  //specifying UITableVC makes tabl
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let selectedBook = self.books?[indexPath.row]
-        //        print(book?.title)
-        //        return
-        
-        
-        
         let layout = UICollectionViewFlowLayout()
-        
-        //      let bookPageController = UICollectionViewController(collectionViewLayout: layout)  <--- overloaded below
         let bookPageController = BookPagerController(collectionViewLayout: layout)
         
         
@@ -121,15 +102,7 @@ class ViewController: UITableViewController {  //specifying UITableVC makes tabl
         
         let book = books?[indexPath.row]
         cell.book = book   // this works because of 'var book: Book?' in class definition
-        
-        //        Below is errors
-        //        cell.coverImageView.image = book?.image
-        //        cell.titleLabel.text = book?.title
-        //        cell.authorLabel.text = book?.author
-        //        cell.textLabel?.text = book?.title
-        //        cell.imageView?.image = book?.image
-        
-        return cell
+       return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
