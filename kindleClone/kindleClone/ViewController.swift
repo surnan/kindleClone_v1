@@ -19,7 +19,7 @@ class ViewController: UITableViewController {  //specifying UITableVC makes tabl
         
         tableView.register(BookCell.self, forCellReuseIdentifier: "myCellID")
         tableView.tableFooterView = UIView()  //Removes excess rows (which are shown blank) from screen
-        setupBooks()
+        //        setupBooks()  <--- going to try to pull it now.  Instead of static defining it
         fetchBooks()
     }
     
@@ -33,10 +33,39 @@ class ViewController: UITableViewController {  //specifying UITableVC makes tabl
                     print("Failed to fetch external JSON books: ", err)
                     return
                 }
-//                print(response)
+                
                 guard let dataX = data else { return }
-                guard let dataString = String(data: dataX, encoding: .utf8) else { return }
-                print(dataString)
+//                guard let dataString = String(data: dataX, encoding: .utf8) else { return }; print(dataString)
+                
+                do {
+                    let json = try JSONSerialization.jsonObject(with: dataX, options: .mutableContainers)
+                    
+                    guard let bookDictionaries = json as? [[String:Any]]  else {return}
+                    //outside bracket shows array, inner bracket shows dictionary
+                    
+                    self.books = []  // <-- without this line the self.books?.append results = NIL
+                    for bookDictionary in bookDictionaries {
+                        if let title = bookDictionary["title"] as? String, let author = bookDictionary["author"] as? String {
+                            let book = Book(title: title, author: author, image: #imageLiteral(resourceName: "steve_jobs"), pages: [])
+                            //print(book.title, book.author)
+                            self.books?.append(book)
+                        }
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                    
+                    // print(json)
+                    //squigly brackets = dictionary[Any:Any]; square brackets = array
+                    //We have an array of dictionaries
+                    //Dictionary = [String: Any]
+                    
+                } catch let jsonError {  //do loop
+                    print("Failed to parse JSON properly", jsonError )
+                }
+                
+                
             }).resume()  //this line needed to execute external fetch.  Apple should have named it '.execute()'
         }
     }
