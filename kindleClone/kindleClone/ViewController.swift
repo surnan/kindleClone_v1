@@ -16,28 +16,51 @@ class ViewController: UITableViewController {  //specifying UITableVC makes tabl
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "My Kindle"
- 
+        
         tableView.register(BookCell.self, forCellReuseIdentifier: "myCellID")
         tableView.tableFooterView = UIView()  //Removes excess rows (which are shown blank) from screen
         setupBooks()
+        fetchBooks()
     }
+    
+    
+    func fetchBooks() {
+        print("Fetching books.....")
+        
+        if let url = URL(string: "https://letsbuildthatapp-videos.s3-us-west-2.amazonaws.com/kindle.json") {
+            URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
+                if let err = error {
+                    print("Failed to fetch external JSON books: ", err)
+                    return
+                }
+//                print(response)
+                guard let dataX = data else { return }
+                guard let dataString = String(data: dataX, encoding: .utf8) else { return }
+                print(dataString)
+            }).resume()  //this line needed to execute external fetch.  Apple should have named it '.execute()'
+        }
+    }
+    
+    
+    
+    
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let selectedBook = self.books?[indexPath.row]
-//        print(book?.title)
-//        return
-
+        //        print(book?.title)
+        //        return
+        
         
         
         let layout = UICollectionViewFlowLayout()
         
-//      let bookPageController = UICollectionViewController(collectionViewLayout: layout)  <--- overloaded below
+        //      let bookPageController = UICollectionViewController(collectionViewLayout: layout)  <--- overloaded below
         let bookPageController = BookPagerController(collectionViewLayout: layout)
         
         
         bookPageController.book = selectedBook
-
+        
         let navController = UINavigationController(rootViewController: bookPageController)
         present(navController, animated: true, completion: nil)
     }
@@ -55,19 +78,19 @@ class ViewController: UITableViewController {  //specifying UITableVC makes tabl
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCellID", for: indexPath) as! BookCell //<-- downcast works because of line #20
-                                                                                        // it registered with "BookCell"
+        // it registered with "BookCell"
         
         
         let book = books?[indexPath.row]
         cell.book = book   // this works because of 'var book: Book?' in class definition
         
-//        Below is errors
-//        cell.coverImageView.image = book?.image
-//        cell.titleLabel.text = book?.title
-//        cell.authorLabel.text = book?.author
-//        cell.textLabel?.text = book?.title
-//        cell.imageView?.image = book?.image
-
+        //        Below is errors
+        //        cell.coverImageView.image = book?.image
+        //        cell.titleLabel.text = book?.title
+        //        cell.authorLabel.text = book?.author
+        //        cell.textLabel?.text = book?.title
+        //        cell.imageView?.image = book?.image
+        
         return cell
     }
     
