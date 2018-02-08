@@ -8,6 +8,16 @@
 
 import UIKit
 
+//If the below code is put into ViewDidLoad, it doesn't change color for all items in navigation pane
+//Like Carrier Signal & Clock
+class LightStatusBarNavController: UINavigationController {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+}
+
+
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -24,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        window?.rootViewController = ViewController()
 //        //above needed after deleting storyboard
         
-        window?.rootViewController = UINavigationController(rootViewController: ViewController())
+        window?.rootViewController = LightStatusBarNavController(rootViewController: ViewController())
         
         
         return true

@@ -13,10 +13,85 @@ class ViewController: UITableViewController {  //specifying UITableVC makes tabl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationBarStyles()
+        setupNavBarButtons()
         navigationItem.title = "My Kindle"
         tableView.register(BookCell.self, forCellReuseIdentifier: "myCellID")
         tableView.tableFooterView = UIView()  //Removes excess rows (which are shown blank) from screen
+        
+//        tableView.backgroundColor = .lightGray  //after making cell rows clear, it becomes color for all rows
+       tableView.backgroundColor = UIColor(white: 1, alpha: 0.3)
+        tableView.separatorColor = UIColor(white: 0, alpha: 0.5)
+        
         fetchBooks()
+    }
+
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footerView = UIView()
+        footerView.backgroundColor = UIColor(displayP3Red: 40/255, green: 40/255, blue: 40/255, alpha: 1)
+        
+        let segmentedControl = UISegmentedControl(items: ["Cloud", "Device"])
+        footerView.addSubview(segmentedControl)
+        
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        segmentedControl.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        segmentedControl.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        segmentedControl.centerXAnchor.constraint(equalTo: footerView.centerXAnchor).isActive = true
+        segmentedControl.centerYAnchor.constraint(equalTo: footerView.centerYAnchor).isActive = true
+        segmentedControl.tintColor = .white
+        segmentedControl.selectedSegmentIndex = 0
+        
+        let gridButton = UIButton(type: .system)
+        gridButton.setImage(#imageLiteral(resourceName: "grid"), for: .normal)
+        gridButton.tintColor = .white
+        
+        footerView.addSubview(gridButton)
+        gridButton.translatesAutoresizingMaskIntoConstraints = false
+        gridButton.leftAnchor.constraint(equalTo: footerView.leftAnchor, constant: 15).isActive = true
+        gridButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        gridButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        gridButton.centerYAnchor.constraint(equalTo: footerView.centerYAnchor).isActive = true
+        
+        let sortButton = UIButton(type: .system)
+        sortButton.setImage(#imageLiteral(resourceName: "sort"), for: .normal)
+        sortButton.tintColor = .white
+        
+        footerView.addSubview(sortButton)
+        sortButton.translatesAutoresizingMaskIntoConstraints = false
+        sortButton.rightAnchor.constraint(equalTo: footerView.rightAnchor, constant: -15).isActive = true
+        sortButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        sortButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        sortButton.centerYAnchor.constraint(equalTo: footerView.centerYAnchor).isActive = true
+        
+        
+        
+        
+        return footerView
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 50
+    }
+    
+    func setupNavigationBarStyles() {
+//        navigationController?.navigationBar.backgroundColor = .black
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.barTintColor = UIColor(displayP3Red: 40/255, green: 40/255, blue: 40/255, alpha: 1)
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+    }
+
+    func setupNavBarButtons() { //renderingMode keeps original color palette.  Otherwise they are blue
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "menu").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleMenuPress))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "amazon_icon").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleAmazonIconPress))
+    }
+    
+    
+    @objc func handleAmazonIconPress() {
+        print("Amazon button pressed")
+    }
+    
+    @objc func handleMenuPress() {
+        print("Menu button pressed")
     }
     
     func fetchBooks() {
